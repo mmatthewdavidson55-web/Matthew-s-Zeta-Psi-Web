@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduling – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .when2meet-embed {
+      width: 100%;
+      height: 620px;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: block;
+      margin-top: 1.5rem;
+    }
+
+    .availability-form {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+    }
+
+    .availability-form h3 { color: var(--navy); margin-bottom: 0.75rem; }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: var(--text-dark);
+      margin-bottom: 0.35rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.6rem 0.9rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-family: Georgia, serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(0,45,108,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .form-submit {
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover { background: var(--navy-dark); }
+
+    .success-msg {
+      display: none;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 6px;
+      padding: 1rem;
+      color: #2e7d32;
+      font-family: sans-serif;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-crest">ΖΨ</span>
+    <span>Zeta Psi · Clemson</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="scheduling.html" class="active">Scheduling</a></li>
+    <li><a href="nationals.html">Nationals</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+</nav>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <h1>Scheduling</h1>
+  <p>Coordinate meetings, events, and availability across the chapter</p>
+</div>
+
+<!-- ── Scheduling Tools ── -->
+<section class="scheduling-section">
+  <div class="container">
+    <h2 class="section-title">Scheduling Tools</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-icon">📅</div>
+        <h3>When2meet</h3>
+        <p>Find the best time for chapter-wide meetings and events. Use this for any event requiring most or all brothers.</p>
+        <a href="https://when2meet.com" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Open When2meet</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">🗓️</div>
+        <h3>Google Calendar</h3>
+        <p>All official events live on the chapter Google Calendar. Subscribe to get automatic reminders sent to your phone.</p>
+        <a href="calendar.html" class="btn btn-gold">View Chapter Calendar</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">🗳️</div>
+        <h3>Doodle Poll</h3>
+        <p>Need to schedule a smaller group meeting? Doodle makes it easy to find a time that works for everyone.</p>
+        <a href="https://doodle.com" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Open Doodle</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">💬</div>
+        <h3>GroupMe</h3>
+        <p>Most chapter coordination happens in GroupMe. Make sure you're in the main chapter chat and your sub-group chats.</p>
+        <a href="https://groupme.com" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Open GroupMe</a>
+      </div>
+    </div>
+
+    <!-- Availability request form -->
+    <div class="availability-form">
+      <h3>Request a Meeting Time</h3>
+      <p style="color:var(--text-medium);font-size:0.93rem;margin-bottom:1.25rem;">
+        Submit a request to the Events Officer to schedule an official chapter meeting or event.
+        You'll be contacted within 48 hours to confirm.
+      </p>
+
+      <form id="schedule-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="Full name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="event-type">Type of Meeting / Event</label>
+          <select id="event-type" name="event-type" required>
+            <option value="" disabled selected>Select a type…</option>
+            <option>Chapter Meeting</option>
+            <option>Committee Meeting</option>
+            <option>Brotherhood Event</option>
+            <option>Philanthropy</option>
+            <option>Executive Board Meeting</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="preferred-dates">Preferred Dates &amp; Times</label>
+          <input type="text" id="preferred-dates" name="preferred-dates" placeholder="e.g., Mon/Wed evenings after 6 PM" required>
+        </div>
+        <div class="form-group">
+          <label for="details">Additional Details</label>
+          <textarea id="details" name="details" placeholder="Purpose, number of attendees, location preferences…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit Request</button>
+      </form>
+
+      <div class="success-msg" id="success-msg">
+        ✅ Your request has been sent! The Events Officer will follow up within 48 hours.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    &copy; 2025 Zeta Psi Fraternity – Clemson University Chapter &nbsp;|&nbsp;
+    <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer">zetapsi.org</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    // In production, replace this with a backend call or Formspree endpoint
+    document.getElementById('schedule-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+</script>
+</body>
+</html>

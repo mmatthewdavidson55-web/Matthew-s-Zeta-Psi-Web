@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nationals – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .alumni-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--gold);
+    }
+
+    .alumni-card h3 { color: var(--navy); font-size: 1rem; margin-bottom: 0.25rem; }
+    .alumni-card .alumni-title {
+      font-size: 0.82rem;
+      color: var(--gold);
+      font-family: sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .alumni-card p { font-size: 0.88rem; color: var(--text-medium); }
+
+    .chapter-map-placeholder {
+      background: var(--off-white);
+      border-radius: var(--radius);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      color: var(--text-medium);
+      font-family: sans-serif;
+      font-size: 0.93rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .chapter-map-placeholder .map-icon { font-size: 3rem; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .pillar-item {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius);
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .pillar-item .pillar-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .pillar-item h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.35rem; }
+    .pillar-item p  { font-size: 0.82rem; opacity: 0.8; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-crest">ΖΨ</span>
+    <span>Zeta Psi · Clemson</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="scheduling.html">Scheduling</a></li>
+    <li><a href="nationals.html" class="active">Nationals</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+</nav>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <h1>Zeta Psi International</h1>
+  <p>Our national organization — history, leadership, and our connection to the broader brotherhood</p>
+</div>
+
+<!-- ── About Nationals ── -->
+<section class="nationals-section">
+  <div class="container">
+    <h2 class="section-title">About Zeta Psi International</h2>
+
+    <div class="nationals-grid">
+      <div class="nationals-card">
+        <h3>Our Founding</h3>
+        <p>
+          Zeta Psi was founded on June 1, 1847 at New York University, making it one of the oldest
+          fraternities in North America. The founding brothers established a tradition of academic
+          excellence, brotherhood, and service that continues to define the fraternity today.
+        </p>
+        <a href="https://en.wikipedia.org/wiki/Zeta_Psi" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Read on Wikipedia</a>
+      </div>
+
+      <div class="nationals-card">
+        <h3>National Headquarters</h3>
+        <p>
+          Zeta Psi International is headquartered and governed by an Executive Director and Board of
+          Trustees made up of alumni and chapter representatives. The national organization supports
+          chapters with resources, programming, and risk management.
+        </p>
+        <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Visit zetapsi.org</a>
+      </div>
+
+      <div class="nationals-card">
+        <h3>Chapters Across North America</h3>
+        <p>
+          With over 50 active chapters at leading universities across the United States and Canada,
+          Zeta Psi's brotherhood spans the continent. Our Clemson chapter is part of this larger
+          family of men who share the same values and traditions.
+        </p>
+        <a href="https://www.zetapsi.org/chapters" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Find Chapters</a>
+      </div>
+
+      <div class="nationals-card">
+        <h3>Annual Convention (Grand Chapter)</h3>
+        <p>
+          Every year, brothers from chapters across North America gather at Grand Chapter — Zeta Psi's
+          national convention. It is an opportunity to vote on fraternity business, compete for awards,
+          and connect with brothers from other schools.
+        </p>
+        <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Four pillars -->
+    <h2 class="section-title" style="margin-top: 3rem;">The Four Pillars of Zeta Psi</h2>
+    <div class="pillars-grid">
+      <div class="pillar-item">
+        <div class="pillar-icon">🤝</div>
+        <h3>Brotherhood</h3>
+        <p>Lifelong bonds forged through shared experience and mutual support</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-icon">📚</div>
+        <h3>Scholarship</h3>
+        <p>Academic achievement as a foundation for a life of meaningful work</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-icon">🌍</div>
+        <h3>Service</h3>
+        <p>Giving back to our campus, community, and society at large</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-icon">⭐</div>
+        <h3>Leadership</h3>
+        <p>Developing men who lead with character both in and out of the chapter</p>
+      </div>
+    </div>
+
+    <!-- Notable alumni -->
+    <h2 class="section-title" style="margin-top: 3rem;">Notable Zeta Psi Alumni</h2>
+    <div class="alumni-grid">
+      <div class="alumni-card">
+        <h3>Charles Evans Hughes</h3>
+        <div class="alumni-title">Chief Justice of the United States · Class of 1881</div>
+        <p>Governor of New York, U.S. Secretary of State, and Chief Justice of the Supreme Court. One of the most distinguished statesmen in American history.</p>
+      </div>
+      <div class="alumni-card">
+        <h3>William Lyon Mackenzie King</h3>
+        <div class="alumni-title">Prime Minister of Canada · Class of 1895</div>
+        <p>Canada's longest-serving Prime Minister, leading the nation through both World Wars and shaping modern Canadian policy.</p>
+      </div>
+      <div class="alumni-card">
+        <h3>Ben Bradlee</h3>
+        <div class="alumni-title">Executive Editor, The Washington Post · Class of 1943</div>
+        <p>Oversaw coverage of the Watergate scandal and the Pentagon Papers, cementing the Post's reputation as a pillar of American journalism.</p>
+      </div>
+      <div class="alumni-card">
+        <h3>Kiefer Sutherland</h3>
+        <div class="alumni-title">Actor &amp; Producer</div>
+        <p>Award-winning actor best known for his role as Jack Bauer in the TV series 24, and a prolific career in film and television.</p>
+      </div>
+      <div class="alumni-card">
+        <h3>DeWitt Wallace</h3>
+        <div class="alumni-title">Co-Founder, Reader's Digest · Class of 1911</div>
+        <p>Built Reader's Digest into one of the best-selling magazines of the 20th century, with global circulation reaching over 100 million readers.</p>
+      </div>
+      <div class="alumni-card">
+        <h3>Alan Thicke</h3>
+        <div class="alumni-title">Actor, Songwriter &amp; Television Host</div>
+        <p>Beloved Canadian entertainer known for Growing Pains, and a prolific songwriter who wrote theme songs for iconic television shows.</p>
+      </div>
+    </div>
+
+    <!-- National links CTA -->
+    <div style="background:var(--off-white);border-radius:var(--radius);padding:2rem;text-align:center;margin-top:3rem;box-shadow:var(--shadow);">
+      <h3 style="color:var(--navy);margin-bottom:0.75rem;">Stay Connected Nationally</h3>
+      <p style="color:var(--text-medium);margin-bottom:1.25rem;">Access national resources, alumni networks, and fraternity updates through the Zeta Psi International website.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer" class="btn btn-navy">zetapsi.org</a>
+        <a href="https://en.wikipedia.org/wiki/Zeta_Psi" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Wikipedia Page</a>
+        <a href="https://www.instagram.com/zetapsinationals/" target="_blank" rel="noopener noreferrer" class="btn btn-navy">National Instagram</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    &copy; 2025 Zeta Psi Fraternity – Clemson University Chapter &nbsp;|&nbsp;
+    <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer">zetapsi.org</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

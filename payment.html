@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .payment-notice {
+      background: #fff8e1;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.92rem;
+      color: #5a4a00;
+      font-family: sans-serif;
+    }
+
+    .payment-notice strong { color: #3a3000; }
+
+    .venmo-handle {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--navy);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      letter-spacing: 0.02em;
+      background: var(--off-white);
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border-radius: 6px;
+      margin: 0.5rem 0 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-crest">ΖΨ</span>
+    <span>Zeta Psi · Clemson</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+    <li><a href="payment.html" class="active">Payment</a></li>
+    <li><a href="scheduling.html">Scheduling</a></li>
+    <li><a href="nationals.html">Nationals</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+</nav>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <h1>Dues &amp; Payments</h1>
+  <p>Chapter dues, fees, and how to pay</p>
+</div>
+
+<!-- ── Payment Section ── -->
+<section class="payment-section">
+  <div class="container">
+
+    <div class="payment-notice">
+      <strong>Reminder:</strong> All dues and fees must be paid by the deadlines set by the Treasurer. Late payments may result in a fine or loss of good-standing status. Contact the Treasurer with any questions or to arrange a payment plan.
+    </div>
+
+    <!-- Payment methods -->
+    <div class="payment-grid">
+      <div class="payment-card">
+        <div class="pay-icon">💸</div>
+        <h3>Venmo</h3>
+        <p>Send dues and fees directly via Venmo. Include your name and the purpose (e.g., "Fall Dues – [Your Name]") in the note.</p>
+        <div class="venmo-handle">@ZetaPsi-Clemson</div>
+        <p style="font-size:0.82rem;color:var(--gray-mid);font-family:sans-serif;">Update handle with your chapter Treasurer's Venmo</p>
+        <a href="https://venmo.com/" target="_blank" rel="noopener noreferrer" class="btn btn-navy">Open Venmo</a>
+      </div>
+
+      <div class="payment-card">
+        <div class="pay-icon">✉️</div>
+        <h3>Check / Cash</h3>
+        <p>Make checks payable to <strong>Zeta Psi – Clemson Chapter</strong> and deliver to the Treasurer at any chapter meeting. Cash must be delivered in person.</p>
+        <p style="font-size:0.85rem;color:var(--text-medium);margin-top:0.5rem;">Please obtain a receipt for all cash payments.</p>
+        <a href="mailto:zetapsiclemson@gmail.com" class="btn btn-gold" style="margin-top:0.75rem;">Contact Treasurer</a>
+      </div>
+
+      <div class="payment-card">
+        <div class="pay-icon">🏦</div>
+        <h3>Zelle / Bank Transfer</h3>
+        <p>Zelle payments can be sent to the chapter's registered email address. Confirm the correct email with the Treasurer before sending.</p>
+        <a href="mailto:zetapsiclemson@gmail.com" class="btn btn-navy" style="margin-top:0.75rem;">Get Account Info</a>
+      </div>
+    </div>
+
+    <!-- Fee schedule -->
+    <h2 class="section-title" style="margin-top:3rem;">Fee Schedule</h2>
+
+    <div style="overflow-x:auto;margin-top:1.5rem;">
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th>Fee</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fall Semester Dues</td>
+            <td>TBD by Treasurer</td>
+            <td>First chapter meeting of fall</td>
+            <td>Covers chapter operations, events, and IFC fees</td>
+          </tr>
+          <tr>
+            <td>Spring Semester Dues</td>
+            <td>TBD by Treasurer</td>
+            <td>First chapter meeting of spring</td>
+            <td>Covers chapter operations, events, and IFC fees</td>
+          </tr>
+          <tr>
+            <td>New Member Fee</td>
+            <td>TBD</td>
+            <td>Upon bid acceptance</td>
+            <td>One-time fee for new members</td>
+          </tr>
+          <tr>
+            <td>Nationals Dues</td>
+            <td>TBD</td>
+            <td>Per national schedule</td>
+            <td>Paid directly to Zeta Psi International</td>
+          </tr>
+          <tr>
+            <td>Formal Ticket</td>
+            <td>TBD</td>
+            <td>Announced before formal</td>
+            <td>Includes dinner and venue; guest ticket extra</td>
+          </tr>
+          <tr>
+            <td>Late Payment Fee</td>
+            <td>TBD</td>
+            <td>After due date</td>
+            <td>Applied to all overdue balances</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1.5rem;color:var(--text-medium);font-size:0.88rem;font-style:italic;">
+      * Specific amounts are set each semester by the Chapter Treasurer and announced at the first chapter meeting. Contact <a href="mailto:zetapsiclemson@gmail.com" style="color:var(--navy);">zetapsiclemson@gmail.com</a> for the current fee schedule.
+    </p>
+
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    &copy; 2025 Zeta Psi Fraternity – Clemson University Chapter &nbsp;|&nbsp;
+    <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer">zetapsi.org</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

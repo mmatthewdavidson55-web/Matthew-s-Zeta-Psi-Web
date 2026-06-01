@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .cal-instructions {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+    }
+
+    .cal-instructions h3 {
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .cal-instructions ol {
+      padding-left: 1.25rem;
+      color: var(--text-medium);
+      font-size: 0.93rem;
+      line-height: 2;
+    }
+
+    .mini-month {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .month-header {
+      background: var(--navy);
+      color: var(--gold);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 0.9rem 1.25rem;
+      font-family: sans-serif;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .month-header button {
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0.2rem 0.6rem;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .month-header button:hover { background: rgba(201,168,76,0.2); }
+
+    .month-header .month-label { text-align: center; }
+
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+    }
+
+    .day-header {
+      background: var(--off-white);
+      font-family: sans-serif;
+      font-size: 0.75rem;
+      color: var(--gray-mid);
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .day-cell {
+      padding: 0.6rem 0.25rem;
+      font-size: 0.88rem;
+      border: 1px solid var(--gray-light);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: var(--text-medium);
+      transition: background 0.15s;
+    }
+
+    .day-cell:hover { background: var(--off-white); }
+    .day-cell.empty { background: #fafafa; cursor: default; }
+    .day-cell.today {
+      background: var(--navy);
+      color: var(--white);
+      font-weight: bold;
+    }
+
+    .event-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .today .event-dot { background: var(--gold-light); }
+
+    .cal-legend {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      font-family: sans-serif;
+      font-size: 0.83rem;
+      color: var(--text-medium);
+      align-items: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-crest">ΖΨ</span>
+    <span>Zeta Psi · Clemson</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="calendar.html" class="active">Calendar</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="scheduling.html">Scheduling</a></li>
+    <li><a href="nationals.html">Nationals</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+</nav>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <h1>Chapter Calendar</h1>
+  <p>All scheduled events, meetings, and deadlines in one place</p>
+</div>
+
+<!-- ── Calendar ── -->
+<section class="calendar-section">
+  <div class="container">
+
+    <!-- Interactive calendar rendered by JS -->
+    <div class="mini-month" id="calendar-widget">
+      <div class="month-header">
+        <button id="prev-month">&#8592;</button>
+        <span class="month-label" id="month-label">Loading…</span>
+        <button id="next-month">&#8594;</button>
+      </div>
+      <div class="day-grid" id="day-headers">
+        <div class="day-header">Sun</div>
+        <div class="day-header">Mon</div>
+        <div class="day-header">Tue</div>
+        <div class="day-header">Wed</div>
+        <div class="day-header">Thu</div>
+        <div class="day-header">Fri</div>
+        <div class="day-header">Sat</div>
+      </div>
+      <div class="day-grid" id="day-cells"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="cal-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--navy);"></div>
+        Today
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--gold);"></div>
+        Event
+      </div>
+    </div>
+
+    <!-- Google Calendar embed instructions -->
+    <div class="cal-instructions">
+      <h3>Subscribe to the Chapter Calendar</h3>
+      <p style="color:var(--text-medium);font-size:0.93rem;margin-bottom:0.75rem;">
+        To add the official Zeta Psi Clemson calendar to your personal Google Calendar:
+      </p>
+      <ol>
+        <li>Ask your Chapter President or Events Officer for the shared Google Calendar link.</li>
+        <li>Open Google Calendar and click the <strong>"+" icon</strong> next to "Other calendars."</li>
+        <li>Select <strong>"Subscribe to calendar"</strong> and paste the shared link.</li>
+        <li>All chapter events will automatically sync to your calendar.</li>
+      </ol>
+      <p style="color:var(--text-medium);font-size:0.85rem;margin-top:0.75rem;">
+        You can also view upcoming events on the <a href="events.html" style="color:var(--navy);font-weight:600;">Events</a> page at any time.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    &copy; 2025 Zeta Psi Fraternity – Clemson University Chapter &nbsp;|&nbsp;
+    <a href="https://www.zetapsi.org" target="_blank" rel="noopener noreferrer">zetapsi.org</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Simple interactive calendar
+  const MONTHS = ["January","February","March","April","May","June",
+                  "July","August","September","October","November","December"];
+
+  // Events keyed as "YYYY-M-D" (month 0-indexed)
+  const chapterEvents = {
+    "2025-5-7":  "Chapter Meeting",
+    "2025-5-14": "Philanthropy Day",
+    "2025-5-21": "Summer Social",
+    "2025-5-28": "Alumni Night",
+    "2025-6-12": "Golf Fundraiser",
+    "2025-7-18": "Fall Rush Kickoff",
+    "2025-8-6":  "Homecoming Tailgate",
+    "2025-9-18": "Fall Formal",
+  };
+
+  let viewYear, viewMonth;
+
+  function init() {
+    const now = new Date();
+    viewYear  = now.getFullYear();
+    viewMonth = now.getMonth();
+    render();
+  }
+
+  function render() {
+    document.getElementById('month-label').textContent =
+      `${MONTHS[viewMonth]} ${viewYear}`;
+
+    const cells = document.getElementById('day-cells');
+    cells.innerHTML = '';
+
+    const today = new Date();
+    const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    // Leading empty cells
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day-cell empty';
+      cells.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const isToday = (d === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear());
+      cell.className = 'day-cell' + (isToday ? ' today' : '');
+      cell.textContent = d;
+
+      const key = `${viewYear}-${viewMonth}-${d}`;
+      if (chapterEvents[key]) {
+        const dot = document.createElement('div');
+        dot.className = 'event-dot';
+        dot.title = chapterEvents[key];
+        cell.appendChild(dot);
+        cell.title = chapterEvents[key];
+      }
+
+      cells.appendChild(cell);
+    }
+  }
+
+  document.getElementById('prev-month').addEventListener('click', () => {
+    viewMonth--;
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    render();
+  });
+
+  document.getElementById('next-month').addEventListener('click', () => {
+    viewMonth++;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    render();
+  });
+
+  init();
+</script>
+</body>
+</html>
