@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body { background: var(--off-white); }
+
+    /* ── Portal header ── */
+    .portal-header {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 1.1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem;
+    }
+
+    .portal-header .brand { color: var(--gold); font-weight: bold; font-family: sans-serif; font-size: 1rem; text-decoration: none; }
+    .portal-header .admin-badge {
+      background: var(--gold); color: var(--navy-dark);
+      font-size: 0.72rem; font-weight: 700; font-family: sans-serif;
+      padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .portal-header .btn-sm {
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.8); padding: 0.35rem 0.85rem;
+      border-radius: 6px; font-family: sans-serif; font-size: 0.8rem;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s; text-decoration: none;
+    }
+
+    .portal-header .btn-sm:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Summary cards ── */
+    .admin-body { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+    .summary-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin-bottom: 1.75rem;
+    }
+
+    .sum-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.1rem 1.4rem; box-shadow: var(--shadow);
+      border-left: 5px solid var(--gold);
+    }
+
+    .sum-card .sum-num { font-size: 2rem; font-weight: bold; color: var(--navy); line-height: 1; }
+    .sum-card .sum-lbl { font-family: sans-serif; font-size: 0.75rem; color: var(--gray-mid); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
+
+    /* ── Tabs ── */
+    .admin-tabs {
+      display: flex; gap: 0.25rem; margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--gray-light);
+    }
+
+    .at-btn {
+      background: none; border: none; padding: 0.65rem 1.2rem;
+      font-family: sans-serif; font-size: 0.88rem; font-weight: 600;
+      color: var(--gray-mid); cursor: pointer;
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .at-btn.active { color: var(--navy); border-bottom-color: var(--gold); }
+    .at-panel { display: none; }
+    .at-panel.active { display: block; }
+
+    /* ── Member table ── */
+    .table-controls {
+      display: flex; gap: 0.75rem; align-items: center;
+      margin-bottom: 1rem; flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1; min-width: 200px; padding: 0.55rem 0.9rem;
+      border: 1.5px solid var(--gray-light); border-radius: 7px;
+      font-family: sans-serif; font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { outline: none; border-color: var(--navy); }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .data-table th { background: var(--navy); color: var(--gold); padding: 0.75rem 0.9rem; text-align: left; font-family: sans-serif; font-size: 0.78rem; letter-spacing: 0.05em; white-space: nowrap; }
+    .data-table td { padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--gray-light); color: var(--text-medium); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #fafafa; }
+
+    .dues-toggle {
+      padding: 0.25rem 0.65rem; border-radius: 20px;
+      font-size: 0.75rem; font-family: sans-serif; font-weight: 700;
+      cursor: pointer; border: none; transition: opacity 0.2s;
+    }
+
+    .dues-toggle:hover { opacity: 0.8; }
+    .dues-toggle.paid   { background: #e8f5e9; color: #2e7d32; }
+    .dues-toggle.unpaid { background: #ffeaea; color: #c62828; }
+
+    /* ── Events panel ── */
+    .event-list-item {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1rem 1.25rem; margin-bottom: 0.9rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+
+    .event-list-item .ev-info { flex: 1; min-width: 200px; }
+    .event-list-item .ev-title { font-weight: bold; color: var(--navy); margin-bottom: 0.25rem; }
+    .event-list-item .ev-meta { font-size: 0.8rem; color: var(--gray-mid); font-family: sans-serif; }
+    .event-list-item .ev-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    .btn-xs {
+      padding: 0.3rem 0.75rem; border-radius: 5px;
+      font-family: sans-serif; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity 0.15s;
+    }
+
+    .btn-xs:hover { opacity: 0.82; }
+    .btn-xs.navy { background: var(--navy); color: #fff; }
+    .btn-xs.gold { background: var(--gold); color: var(--navy-dark); }
+    .btn-xs.red  { background: #ffeaea; color: #c62828; }
+
+    /* ── Add event form ── */
+    .add-event-form {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.5rem;
+    }
+
+    .add-event-form h3 { color: var(--navy); margin-bottom: 1rem; font-size: 1rem; }
+
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem; }
+
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; padding: 0.55rem 0.8rem;
+      border: 1.5px solid var(--gray-light); border-radius: 7px;
+      font-family: sans-serif; font-size: 0.88rem; color: var(--text-dark);
+      transition: border-color 0.2s;
+    }
+
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      outline: none; border-color: var(--navy);
+    }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 999;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--white); border-radius: 12px;
+      width: 100%; max-width: 560px; max-height: 90vh;
+      overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-head {
+      background: var(--navy); padding: 1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0;
+    }
+
+    .modal-head h3 { color: var(--gold); font-size: 0.95rem; }
+    .modal-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.4rem; cursor: pointer; }
+    .modal-body  { padding: 1.25rem 1.5rem; }
+
+    .modal-search {
+      width: 100%; padding: 0.5rem 0.8rem; margin-bottom: 1rem;
+      border: 1.5px solid var(--gray-light); border-radius: 7px;
+      font-size: 0.88rem; font-family: sans-serif;
+    }
+
+    .modal-search:focus { outline: none; border-color: var(--navy); }
+
+    .member-check-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.5rem 0; border-bottom: 1px solid var(--gray-light);
+    }
+
+    .member-check-row:last-child { border-bottom: none; }
+
+    .member-check-row input[type="checkbox"] {
+      width: 16px; height: 16px; cursor: pointer; accent-color: var(--navy);
+    }
+
+    .member-check-row label {
+      font-size: 0.88rem; color: var(--text-dark); cursor: pointer; flex: 1;
+    }
+
+    .member-check-row .pledge-tag {
+      font-size: 0.72rem; color: var(--gray-mid); font-family: sans-serif;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem; border-top: 1px solid var(--gray-light);
+      display: flex; justify-content: flex-end; gap: 0.75rem;
+      position: sticky; bottom: 0; background: var(--white);
+    }
+
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      background: #2e7d32; color: #fff; padding: 0.75rem 1.25rem;
+      border-radius: 8px; font-family: sans-serif; font-size: 0.88rem;
+      font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 9999; display: none;
+    }
+
+    #loading-screen {
+      position: fixed; inset: 0; background: var(--navy);
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+    }
+
+    .spin { font-size: 3rem; animation: spin 1.5s linear infinite; color: var(--gold); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-row td { text-align: center; color: var(--gray-mid); font-style: italic; padding: 1.5rem; }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen"><span class="spin">ΖΨ</span></div>
+
+<!-- Portal header -->
+<header class="portal-header">
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <a href="index.html" class="brand">ΖΨ Zeta Psi · Clemson</a>
+    <span class="admin-badge">Admin</span>
+  </div>
+  <span id="admin-name-tag" style="color:rgba(255,255,255,0.7);font-family:sans-serif;font-size:0.85rem;"></span>
+  <div style="display:flex;gap:0.5rem;">
+    <a href="index.html" class="btn-sm">Chapter Home</a>
+    <button class="btn-sm" onclick="doSignOut()">Sign Out</button>
+  </div>
+</header>
+
+<!-- Admin body -->
+<main class="admin-body" id="admin-body" style="display:none;">
+
+  <!-- Summary row -->
+  <div class="summary-row">
+    <div class="sum-card">
+      <div class="sum-num" id="sum-members">—</div>
+      <div class="sum-lbl">Active Brothers</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" id="sum-dues-pct">—</div>
+      <div class="sum-lbl">Dues Paid (Current Sem)</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" id="sum-events">—</div>
+      <div class="sum-lbl">Events This Semester</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" id="sum-hours">—</div>
+      <div class="sum-lbl">Total Service Hours</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <button class="at-btn active" data-tab="members">Members</button>
+    <button class="at-btn" data-tab="events">Events &amp; Chapters</button>
+    <button class="at-btn" data-tab="add-event">Add Event</button>
+  </div>
+
+  <!-- Members tab -->
+  <div class="at-panel active" id="tab-members">
+    <div class="table-controls">
+      <input type="text" class="search-input" id="member-search" placeholder="Search brothers…">
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="member-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Pledge Class</th>
+            <th>Major</th>
+            <th>Events</th>
+            <th>Svc Hours</th>
+            <th>Chapters</th>
+            <th id="dues-col-1">Fall Dues</th>
+            <th id="dues-col-2">Spring Dues</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody id="member-tbody">
+          <tr class="empty-row"><td colspan="9">Loading members…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Events tab -->
+  <div class="at-panel" id="tab-events">
+    <div id="events-list">
+      <p style="color:var(--gray-mid);font-family:sans-serif;font-size:0.9rem;">Loading events…</p>
+    </div>
+  </div>
+
+  <!-- Add event tab -->
+  <div class="at-panel" id="tab-add-event">
+    <div class="add-event-form">
+      <h3>Create New Event</h3>
+      <div class="form-row">
+        <input type="text" id="ev-title" placeholder="Event title" required>
+        <input type="datetime-local" id="ev-date" required>
+      </div>
+      <div class="form-row">
+        <select id="ev-type">
+          <option value="chapter">Chapter Meeting</option>
+          <option value="philanthropy">Philanthropy / Service</option>
+          <option value="social">Social</option>
+          <option value="brotherhood">Brotherhood</option>
+          <option value="meeting">Committee Meeting</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="number" id="ev-hours" min="0" step="0.5" placeholder="Service hours (0 if N/A)">
+        <input type="text" id="ev-location" placeholder="Location">
+      </div>
+      <div class="form-row">
+        <textarea id="ev-desc" placeholder="Description (optional)" rows="2" style="resize:vertical;"></textarea>
+      </div>
+      <button class="btn btn-navy" id="ev-submit-btn" onclick="submitEvent()">Create Event</button>
+      <span id="ev-feedback" style="margin-left:1rem;font-family:sans-serif;font-size:0.85rem;color:#2e7d32;display:none;"></span>
+    </div>
+  </div>
+
+</main>
+
+<!-- Attendance Modal -->
+<div class="modal-overlay" id="attendance-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-event-title">Mark Attendance</h3>
+      <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="modal-search" id="modal-search" placeholder="Filter brothers…" oninput="filterModalList()">
+      <div id="modal-member-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-gold" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" id="save-attendance-btn" onclick="saveAttendance()">Save Attendance</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

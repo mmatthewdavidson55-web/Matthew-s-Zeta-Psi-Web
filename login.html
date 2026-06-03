@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In – Zeta Psi Clemson</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body { background: linear-gradient(135deg, #001A42 0%, #002D6C 60%, #1a4080 100%); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .login-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.35);
+      width: 100%;
+      max-width: 440px;
+      padding: 2.5rem 2.5rem 2rem;
+    }
+
+    .login-brand {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .login-brand .crest {
+      font-size: 3.5rem;
+      display: block;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .login-brand h1 {
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin: 0.4rem 0 0.1rem;
+    }
+
+    .login-brand p {
+      color: var(--gray-mid);
+      font-size: 0.83rem;
+      font-family: sans-serif;
+    }
+
+    .tab-row {
+      display: flex;
+      border-bottom: 2px solid var(--gray-light);
+      margin-bottom: 1.75rem;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 0.7rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--gray-mid);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab-btn.active {
+      color: var(--navy);
+      border-bottom-color: var(--gold);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .field { margin-bottom: 1.1rem; }
+
+    .field label {
+      display: block;
+      font-family: sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid var(--gray-light);
+      border-radius: 7px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-family: Georgia, serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(0,45,108,0.1);
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--gray-mid);
+      font-family: sans-serif;
+      margin-top: 0.25rem;
+    }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 0.97rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: var(--navy-dark); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-msg {
+      display: none;
+      background: #ffeaea;
+      border: 1px solid #f5c6c6;
+      border-radius: 6px;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      color: #c62828;
+      font-family: sans-serif;
+      margin-bottom: 1rem;
+    }
+
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 1.25rem;
+      font-size: 0.83rem;
+      color: var(--gray-mid);
+      font-family: sans-serif;
+      text-decoration: none;
+    }
+
+    .back-home:hover { color: var(--navy); }
+
+    footer { background: transparent; color: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="crest">ΖΨ</span>
+      <h1>Member Portal</h1>
+      <p>Zeta Psi · Clemson University</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="signin">Sign In</button>
+      <button class="tab-btn" data-tab="register">Register</button>
+    </div>
+
+    <!-- Error message -->
+    <div class="error-msg" id="error-msg"></div>
+
+    <!-- Sign In -->
+    <div class="tab-panel active" id="tab-signin">
+      <form id="signin-form">
+        <div class="field">
+          <label for="si-email">Email</label>
+          <input type="email" id="si-email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label for="si-password">Password</label>
+          <input type="password" id="si-password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="submit-btn" id="si-btn">Sign In</button>
+      </form>
+    </div>
+
+    <!-- Register -->
+    <div class="tab-panel" id="tab-register">
+      <form id="register-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="rg-first">First Name</label>
+            <input type="text" id="rg-first" placeholder="First" required>
+          </div>
+          <div class="field">
+            <label for="rg-last">Last Name</label>
+            <input type="text" id="rg-last" placeholder="Last" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="rg-email">Email</label>
+          <input type="email" id="rg-email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label for="rg-phone">Phone</label>
+          <input type="tel" id="rg-phone" placeholder="(555) 000-0000">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="rg-pledge">Pledge Class</label>
+            <input type="text" id="rg-pledge" placeholder="e.g. Fall 2023" required>
+          </div>
+          <div class="field">
+            <label for="rg-major">Major</label>
+            <input type="text" id="rg-major" placeholder="e.g. Business">
+          </div>
+        </div>
+        <div class="field">
+          <label for="rg-password">Password</label>
+          <input type="password" id="rg-password" placeholder="At least 6 characters" required>
+        </div>
+        <div class="field">
+          <label for="rg-confirm">Confirm Password</label>
+          <input type="password" id="rg-confirm" placeholder="Re-enter password" required>
+        </div>
+        <div class="field">
+          <label for="rg-admin-code">Admin Code <span style="font-weight:400;color:var(--gray-mid)">(optional — officers only)</span></label>
+          <input type="password" id="rg-admin-code" placeholder="Leave blank for member account">
+          <p class="field-hint">If you're an officer registering as an admin, enter the chapter admin code.</p>
+        </div>
+        <button type="submit" class="submit-btn" id="rg-btn">Create Account</button>
+      </form>
+    </div>
+
+    <a href="index.html" class="back-home">← Back to Chapter Home</a>
+  </div>
+</div>
+
+<footer><p>&copy; 2025 Zeta Psi – Clemson University</p></footer>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  // Redirect already-logged-in users
+  auth.onAuthStateChanged(async user => {
+    if (!user) return;
+    const data = await getUserData(user.uid);
+    window.location.href = data?.role === 'admin' ? 'admin.html' : 'dashboard.html';
+  });
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      hideError();
+    });
+  });
+
+  function showError(msg) {
+    const el = document.getElementById('error-msg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function hideError() {
+    document.getElementById('error-msg').style.display = 'none';
+  }
+
+  // Sign In
+  document.getElementById('signin-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    hideError();
+    const btn = document.getElementById('si-btn');
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+
+    const email    = document.getElementById('si-email').value.trim();
+    const password = document.getElementById('si-password').value;
+
+    try {
+      const cred = await auth.signInWithEmailAndPassword(email, password);
+      localStorage.setItem('zp_session', cred.user.uid);
+      const data = await getUserData(cred.user.uid);
+      window.location.href = data?.role === 'admin' ? 'admin.html' : 'dashboard.html';
+    } catch (err) {
+      showError(friendlyError(err.code));
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+
+  // Register
+  document.getElementById('register-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    hideError();
+
+    const first     = document.getElementById('rg-first').value.trim();
+    const last      = document.getElementById('rg-last').value.trim();
+    const email     = document.getElementById('rg-email').value.trim();
+    const phone     = document.getElementById('rg-phone').value.trim();
+    const pledge    = document.getElementById('rg-pledge').value.trim();
+    const major     = document.getElementById('rg-major').value.trim();
+    const password  = document.getElementById('rg-password').value;
+    const confirm   = document.getElementById('rg-confirm').value;
+    const adminCode = document.getElementById('rg-admin-code').value;
+
+    if (password !== confirm) { showError('Passwords do not match.'); return; }
+    if (password.length < 6)  { showError('Password must be at least 6 characters.'); return; }
+
+    const role = (adminCode && adminCode === ADMIN_CODE) ? 'admin' : 'member';
+
+    const btn = document.getElementById('rg-btn');
+    btn.disabled = true;
+    btn.textContent = 'Creating account…';
+
+    try {
+      const cred = await auth.createUserWithEmailAndPassword(email, password);
+      const uid  = cred.user.uid;
+
+      // Build dues object — all unpaid by default
+      const duesPaid = {};
+      DUES_SEMESTERS.forEach(s => { duesPaid[s.key] = false; });
+
+      await db.collection('users').doc(uid).set({
+        name:             `${first} ${last}`,
+        firstName:        first,
+        lastName:         last,
+        email,
+        phone,
+        pledgeClass:      pledge,
+        major,
+        role,
+        duesPaid,
+        totalHours:       0,
+        eventsAttended:   [],
+        chaptersAttended: [],
+        createdAt:        firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      localStorage.setItem('zp_session', uid);
+      window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
+    } catch (err) {
+      showError(friendlyError(err.code));
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+    }
+  });
+
+  function friendlyError(code) {
+    const msgs = {
+      'auth/user-not-found':        'No account found with that email.',
+      'auth/wrong-password':        'Incorrect password.',
+      'auth/email-already-in-use':  'An account with this email already exists.',
+      'auth/invalid-email':         'Please enter a valid email address.',
+      'auth/too-many-requests':     'Too many attempts. Please try again later.',
+      'auth/weak-password':         'Password must be at least 6 characters.',
+      'auth/invalid-credential':    'Incorrect email or password.',
+    };
+    return msgs[code] || 'Something went wrong. Please try again.';
+  }
+</script>
+</body>
+</html>

@@ -80,8 +80,18 @@ function markActiveNav() {
   });
 }
 
+// Update the "Sign In / Dashboard" nav link from localStorage (no Firebase needed on public pages)
+function updateMemberNavLink() {
+  const link = document.getElementById('nav-member-link');
+  if (!link) return;
+  const session = localStorage.getItem('zp_session');
+  link.textContent = session ? 'Dashboard' : 'Sign In';
+  link.href        = session ? 'dashboard.html' : 'login.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadWeeklyQuote();
   initNavToggle();
   markActiveNav();
+  updateMemberNavLink();
 });
